@@ -16,7 +16,6 @@
             mousemove = meter.asEventStream('mousemove'),
             mousedrag = mousedown.flatMap(function() {
                 return mousemove.map(function(pos) {
-                    return pos;
                     return {
                         x: pos.offsetX,
                         y: pos.offsetY
@@ -25,8 +24,7 @@
             });
 
         mousedrag.onValue(function(v) {
-            console.log(v);
-            // $("#button").css("top", v.y + "px")
+            $("#button").css("top", v.y + "px")
         })
         
     })
