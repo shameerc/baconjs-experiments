@@ -29,7 +29,7 @@
 	    
 	    var mousedown = meter.asEventStream('mousedown'),
 	    	mouseup = html.asEventStream('mouseup'),
-	    	mousemove = meter.asEventStream('mousemove'),
+	    	mousemove = html.asEventStream('mousemove'),
 	    	mousedrag = mousedown.flatMap(function() {
 	    		return mousemove.map(function(evt) {
                     return getXY(evt);
@@ -37,7 +37,7 @@
 	    	});
 
 	    mousedrag.onValue(function(pos) {
-            var top = (pos.y > 380) ? 380 : pos.y;
+            var top = (pos.y > 380) ? 380 : ((pos.y < 0) ? 0 : pos.y );
 	    	$("#button").css("top", top + "px")
 	    })
 	    
@@ -50,6 +50,7 @@
 		height: 600px;
 		position: relative;
 		border: 1px solid #999;
+        margin: 0 auto;
 	}
 	#wrap {
 		position: absolute;
@@ -63,7 +64,8 @@
 		width: 100%;
 		height: 100%;
 		float: left;
-		background: yellow;
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff4747+0,fcff56+50,6ae847+99,6ae847+99 */
+        background: linear-gradient(to bottom,  rgb(255,71,71) 0%,rgb(255,255,71) 50%); /* W3C */
 	}
 	#clickable-block {
 	    width:10em;
@@ -73,10 +75,14 @@
 	}
 	#button {
 		position: absolute;
-		top: 0;
-		width: 100%;
+		top: 380px;
+		width: 40px;
+        margin-left: -5px;
 		height: 20px;
-		background: red;
+        background: linear-gradient(to bottom,  rgb(70,239,47) 0%,rgb(106,234,63) 21%,rgb(55,204,55) 56%,rgb(50,181,50) 100%); /* W3C */
+        border: 1px solid #2BA029;
+        border-radius: 4px;
+        box-sizing:border-box;
 	}
 </style>
 <body>
