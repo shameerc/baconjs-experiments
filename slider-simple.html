@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Experimenting With Baconjs - Slider, non frp</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bacon.js/0.7.70/Bacon.min.js"></script>
+	<script>
+	$(function(){
+        function getXY(evt) {
+            var target  = $(evt.target).attr('id');
+            if (target == 'meter') {
+                return {
+                    x: evt.offsetX,
+                    y: evt.offsetY
+                };
+            }
+            else {
+                var y = evt.pageY - ($("#meter").offset().top);
+                return {
+                    x: evt.offsetX,
+                    y: y
+                };
+            }
+        }
+	    
+	    var mousedown = false;
+
+	    $("#wrap").mousedown(function() {
+	    	mousedown = true;
+	    });
+	    $("body").mouseup(function() {
+	    	mousedown = false;
+	    });
+	    $("body").mousemove(function(evt) {
+	    	if(mousedown) {
+	    		var pos = getXY(evt),
+	    			top = (pos.y > 380) ? 380 : ((pos.y < 0) ? 0 : pos.y );
+	    		$("#button").css("top", top + "px")
+	    	}
+	    })
+	    
+	})
+	</script>
+</head>
+<body>
+<div id="canvas">
+	<div id="wrap">
+		<div id="meter"></div>
+		<div id="button"></div>
+	</div>
+</div>
+</body>
+</html>
